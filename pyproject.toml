@@ -1,0 +1,17 @@
+[project]
+name = "dnstool"
+version = "0.1.0"
+maintainers = [
+  {name = "Andrew Heath", email = "aheath1992@gmail.com"}
+]
+description = "Tool for getting all DNS records for a hostname"
+readme = "README.md"
+license = "MIT"
+license-files = [:LICENSE.*]
+requires-python = ">=3.11"
+dependencies = [
+    "dnspython>=2.8.0",
+]
+
+[project.scripts]
+dnstool = "main:main"
