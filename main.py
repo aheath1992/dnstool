@@ -36,7 +36,7 @@ def is_ip(value):
 def reverse_resolve(ip, label="internal", nameserver=None):
     resolver = dns.resolver.Resolver()
     if nameserver is not None:
-        resolver._nameservers = [nameserver]
+        resolver.nameservers = [nameserver]
     rev_name = dns.reversename.from_address(ip)
     try:
         answers = resolver.resolve(rev_name, "PTR")
