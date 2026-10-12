@@ -3,6 +3,14 @@ import dns.resolver
 from unittest.mock import MagicMock
 from main import is_ip, resolve, reverse_resolve, main
 
+@pytest.fixture(autouse=True)
+def stub_resolv_conf(mocker):
+    # dns.resolver.Resolver() parses /etc/resolv.conf in its constructor and
+    # raises NoResolverConfiguration if no nameserver is listed. RPM build
+    # chroots and CI containers often have no resolver configured, so stub the
+    # read out; every test mocks Resolver.resolve anyway.
+    mocker.patch("dns.resolver.Resolver.read_resolv_conf")
+
 def test_is_ip_valid():
     assert is_ip("1.1.1.1") is True
     assert is_ip("2001:db8::1") is True
